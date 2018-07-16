@@ -7,6 +7,7 @@ require([
     "esri/layers/FeatureLayer",
 
     "esri/map",
+    "./src/geojsonlayer.js",
     "esri/renderers/ClassBreaksRenderer",
     "esri/symbols/SimpleFillSymbol",
     "esri/symbols/SimpleMarkerSymbol",
@@ -14,7 +15,7 @@ require([
     "dojo/domReady!"
   ],
   function (Color, Legend, PopupTemplate, FeatureLayer,
-    Map, ClassBreaksRenderer, SimpleFillSymbol, SimpleMarkerSymbol){
+    Map, GeoJsonLayer, ClassBreaksRenderer, SimpleFillSymbol, SimpleMarkerSymbol){
 
     map = new Map("mapDiv", {
       basemap: "dark-gray",
