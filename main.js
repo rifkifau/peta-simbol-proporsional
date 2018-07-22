@@ -1,4 +1,4 @@
-var map, layer;
+var map, geoJsonLayer;
 
 require([
     "esri/Color",
@@ -23,8 +23,10 @@ require([
       zoom: 5
     });
 
-    var layerUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/arcgis/rest/services/USA_County_Crops_2007/FeatureServer/0";
-    var rendererField = "M050_07";  //Average farm expenses
+    var geoJsonLayer = new GeoJsonLayer({
+        url : "./data/bali2010.geojson"
+    });
+    var rendererField = "Jumlah";
 
     //----------------------
     // Create renderer
@@ -36,7 +38,7 @@ require([
     //----------------------
     // Fill symbol
     //----------------------
-
+console.log(renderer.attributeField);
     // (1) Define a FILL symbol used to draw county polygons.
     var fillSymbol = new SimpleFillSymbol();
   //warna polygon administrasi transparan
@@ -55,7 +57,7 @@ require([
     // of each polygon.
     var markerSymbol = new SimpleMarkerSymbol();
   //warna simbol proporsional
-    markerSymbol.setColor(new Color([0, 139, 79, 1]));
+    markerSymbol.setColor(new Color([100, 139, 79, 1]));
     markerSymbol.setSize(12);
   //warna outlinenya
     markerSymbol.outline.setColor(new Color([51, 51, 51, 1]));
@@ -79,8 +81,8 @@ require([
       {
         type: "sizeInfo",
         field: rendererField,
-        minDataValue: 0,
-        maxDataValue: 2638797,
+        minDataValue: 170543,
+        maxDataValue: 788589,
         valueUnit: "unknown",
 
         // The SMALLEST marker size at any given map scale is determined by
@@ -132,26 +134,26 @@ require([
     // Create feature layer
     //----------------------
 
-    layer = new FeatureLayer(layerUrl, {
-      opacity: 0.8,
-      //field yang dimunculkan
-      outFields: [rendererField, "COUNTY", "STATE"],
-      definitionExpression: "AREA > 0.1",
-      //format popup yang muncul
-      infoTemplate: new PopupTemplate({
-        title: "{COUNTY} County, {STATE}",
-        fieldInfos: [
-          {
-            fieldName: rendererField,
-            label: "Average Farm Expenses",
-            visible: true,
-            format: {places: 0}
-          }
-        ]
-      })
-    });
+    // layer = new FeatureLayer(geoJsonLayer, {
+    //   opacity: 0.8,
+    //   //field yang dimunculkan
+    //   outFields: [rendererField, "Kabupaten", "Perempuan"],
+    //   // definitionExpression: "AREA > 0.1",
+    //   //format popup yang muncul
+    //   infoTemplate: new PopupTemplate({
+    //     title: "Kab/Kota {Kabupaten}, {Perempuan}",
+    //     fieldInfos: [
+    //       {
+    //         fieldName: rendererField,
+    //         label: "Jumlah Penduduk",
+    //         visible: true,
+    //         format: {places: 0}
+    //       }
+    //     ]
+    //   })
+    // });
 
-    layer.setRenderer(renderer);
+    geoJsonLayer.setRenderer(renderer);
 
     //----------------------
     // Create legend
@@ -160,7 +162,8 @@ require([
     var legend = new Legend({
       map: map,
       layerInfos: [
-        {layer: layer, title: "2007 Crops"}
+        {layer: geoJsonLayer
+          , title: "Penduduk 2010"}
       ]
     }, "legendDiv");
 
@@ -170,5 +173,5 @@ require([
       legend.refresh();
     });
 
-    map.addLayer(layer);
+    map.addLayer(geoJsonLayer);
   });
