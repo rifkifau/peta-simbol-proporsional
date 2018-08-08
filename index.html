@@ -3,21 +3,26 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no" />
   <title>Peta Simbol Proporsional</title>
+  <link rel="stylesheet" href="https://js.arcgis.com/3.25/dijit/themes/claro/claro.css">
   <link rel="stylesheet" href="https://js.arcgis.com/3.25/esri/css/esri.css">
   <link rel="stylesheet" href="style.css">
   <script src="https://js.arcgis.com/3.25/"></script>
   <script src="./vendor/terraformer/terraformer.min.js"></script>
   <script src="./vendor/terraformer-arcgis-parser/terraformer-arcgis-parser.min.js"></script>
-  <script src="main.js" charset="utf-8"></script>
+
   <link rel="shortcut icon" href="https://raw.githubusercontent.com/rifkifau/rifkifau.github.io/master/images/logor.png">
   </head>
-  <body>
+  <body class="claro">
     <div id="mapDiv" style="position: relative; height: 100%;">
       <div id="sidebar" style="position: absolute; top: 5px; right: 5px; z-index: 100; padding: 5px; background-color: #F5F5F5; box-shadow: -3px 3px 3px 0px #959595;">
         <div style="font-weight: bold; padding: 3px;">Legenda</div>
         <hr>
         <div id="legendDiv"></div>
+        <div id="pieChart"></div>
       </div>
     </div>
+    <script src="main.js" charset="utf-8"></script>
+
+
   </body>
 </html>

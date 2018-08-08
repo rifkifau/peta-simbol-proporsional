@@ -1,4 +1,4 @@
-var map, geoJsonLayer;
+var map, layer;
 
 require([
     "esri/Color",
@@ -11,22 +11,26 @@ require([
     "esri/renderers/ClassBreaksRenderer",
     "esri/symbols/SimpleFillSymbol",
     "esri/symbols/SimpleMarkerSymbol",
+    'esri/request',
+    'esri/config',
 
     "dojo/domReady!"
   ],
   function (Color, Legend, PopupTemplate, FeatureLayer,
-    Map, GeoJsonLayer, ClassBreaksRenderer, SimpleFillSymbol, SimpleMarkerSymbol){
+    Map, GeoJsonLayer, ClassBreaksRenderer, SimpleFillSymbol, SimpleMarkerSymbol, esriRequest, esriConfig){
 
     map = new Map("mapDiv", {
       basemap: "dark-gray",
-      center: [115.874572, -2.465325],
-      zoom: 5
+      // center: [115.874572, -2.465325], //Indonesia
+      center: [115.110104, -8.447432], //Bali
+      zoom: 10
     });
-
-    var geoJsonLayer = new GeoJsonLayer({
-        url : "./data/bali2010.geojson"
-    });
+    // geoJsonLayer = new GeoJsonLayer({
+    //     url : "data/bali2010.json"
+    // });
+    var layerkuh = "http://geoservices.bappenas.go.id:6080/arcgis/rest/services/test/penduduk/FeatureServer/1"
     var rendererField = "Jumlah";
+
 
     //----------------------
     // Create renderer
@@ -42,13 +46,13 @@ console.log(renderer.attributeField);
     // (1) Define a FILL symbol used to draw county polygons.
     var fillSymbol = new SimpleFillSymbol();
   //warna polygon administrasi transparan
-    fillSymbol.setColor(new Color([0, 0, 0, 0]));
+    fillSymbol.setColor(new Color([0, 0, 0, 1]));
   //warna outline dari batas administrasi
     fillSymbol.outline.setColor(new Color([255, 255, 133, .5]));
     fillSymbol.outline.setWidth(1);
 
     renderer.backgroundFillSymbol = fillSymbol;
-
+console.log(fillSymbol);
     //----------------------
     // Circle marker symbol
     //----------------------
@@ -134,26 +138,53 @@ console.log(renderer.attributeField);
     // Create feature layer
     //----------------------
 
-    // layer = new FeatureLayer(geoJsonLayer, {
-    //   opacity: 0.8,
-    //   //field yang dimunculkan
-    //   outFields: [rendererField, "Kabupaten", "Perempuan"],
-    //   // definitionExpression: "AREA > 0.1",
-    //   //format popup yang muncul
-    //   infoTemplate: new PopupTemplate({
-    //     title: "Kab/Kota {Kabupaten}, {Perempuan}",
-    //     fieldInfos: [
-    //       {
-    //         fieldName: rendererField,
-    //         label: "Jumlah Penduduk",
-    //         visible: true,
-    //         format: {places: 0}
-    //       }
-    //     ]
-    //   })
-    // });
+    layer = new FeatureLayer(layerkuh, {
+      opacity: 0.8,
+      //field yang dimunculkan
+      outFields: [rendererField, "kabupaten", "laki_laki", "perempuan", "luas_ha"],
+      definitionExpression: "Luas_ha > 0.1",
+      //format popup yang muncul
+      infoTemplate: new PopupTemplate({
+        title: "Kab/Kota {kabupaten}, Bali",
+        fieldInfos: [
+          {
+            fieldName: rendererField,
+            label: "Jumlah Penduduk (jiwa)",
+            visible: true,
+            format: {places: 0}
+          },
+          {
+            fieldName: "laki_laki",
+            label: "Laki-laki (jiwa)",
+            visible: false,
+            format: {places: 0}
+          },
+          {
+            fieldName: "perempuan",
+            label: "Perempuan (jiwa)",
+            visible: false,
+            format: {places: 0}
+          },
+          {
+            fieldName: "luas_ha",
+            label: "Luas Wilayah (ha)",
+            visible: true,
+            format: {places: 0}
+          }
+        ],
+        mediaInfos:[{ //define the pie chart
+          title: "Grafik",
+          type:"piechart",
+          value:{
+            theme: "Grasshopper",
+            fields:["laki_laki","perempuan"],
+            // tooltipField: ["laki_laki","perempuan"],
+          }
+        }]
+      })
+    });
 
-    geoJsonLayer.setRenderer(renderer);
+    layer.setRenderer(renderer);
 
     //----------------------
     // Create legend
@@ -162,8 +193,7 @@ console.log(renderer.attributeField);
     var legend = new Legend({
       map: map,
       layerInfos: [
-        {layer: geoJsonLayer
-          , title: "Penduduk 2010"}
+        {layer: layer, title: "Penduduk Bali (2010)"}
       ]
     }, "legendDiv");
 
@@ -173,5 +203,5 @@ console.log(renderer.attributeField);
       legend.refresh();
     });
 
-    map.addLayer(geoJsonLayer);
+    map.addLayer(layer);
   });
