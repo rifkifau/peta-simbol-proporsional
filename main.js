@@ -28,8 +28,8 @@ require([
     // geoJsonLayer = new GeoJsonLayer({
     //     url : "data/bali2010.json"
     // });
-    var layerkuh = "http://geoservices.bappenas.go.id:6080/arcgis/rest/services/test/penduduk/FeatureServer/1"
-    var rendererField = "Jumlah";
+    var layerkuh = "https://geospasial.bappenas.go.id/server/rest/services/Produksi/PEPPD_Jumlah_Penduduk_Miskin_KabupatenKota/FeatureServer/0"
+    var rendererField = "jmmiskin_2020";
 
 
     //----------------------
