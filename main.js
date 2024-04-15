@@ -141,8 +141,8 @@ console.log(fillSymbol);
     layer = new FeatureLayer(layerkuh, {
       opacity: 0.8,
       //field yang dimunculkan
-      outFields: [rendererField, "kabupaten", "laki_laki", "perempuan", "luas_ha"],
-      definitionExpression: "Luas_ha > 0.1",
+      outFields: [rendererField, "nama_kab", "pria", "wanita", "luas_wilayah"],
+      definitionExpression: "luas_wilayah > 0.1",
       //format popup yang muncul
       infoTemplate: new PopupTemplate({
         title: "Kab/Kota {nama_kab}",
@@ -177,7 +177,7 @@ console.log(fillSymbol);
           type:"piechart",
           value:{
             theme: "Grasshopper",
-            fields:["laki_laki","perempuan"],
+            fields:["pria","wanita"],
             // tooltipField: ["laki_laki","perempuan"],
           }
         }]
