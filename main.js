@@ -23,7 +23,7 @@ require([
       basemap: "dark-gray",
       center: [115.874572, -2.465325], //Indonesia
       //center: [115.110104, -8.447432], //Bali
-      zoom: 10
+      zoom: 6
     });
     // geoJsonLayer = new GeoJsonLayer({
     //     url : "data/bali2010.json"
