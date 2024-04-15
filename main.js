@@ -28,8 +28,8 @@ require([
     // geoJsonLayer = new GeoJsonLayer({
     //     url : "data/bali2010.json"
     // });
-    var layerkuh = "https://geospasial.bappenas.go.id/server/rest/services/Produksi/PEPPD_Jumlah_Penduduk_Miskin_KabupatenKota/FeatureServer/0"
-    var rendererField = "jmmiskin_2020";
+    var layerkuh = "https://gis.dukcapil.kemendagri.go.id/arcgis/rest/services/Hosted/Batas_Administrasi_Indonesia/FeatureServer/1"
+    var rendererField = "jumlah_penduduk";
 
 
     //----------------------
@@ -145,7 +145,7 @@ console.log(fillSymbol);
       definitionExpression: "Luas_ha > 0.1",
       //format popup yang muncul
       infoTemplate: new PopupTemplate({
-        title: "Kab/Kota {kabupaten}, Bali",
+        title: "Kab/Kota {nama_kab}",
         fieldInfos: [
           {
             fieldName: rendererField,
@@ -154,20 +154,20 @@ console.log(fillSymbol);
             format: {places: 0}
           },
           {
-            fieldName: "laki_laki",
+            fieldName: "pria",
             label: "Laki-laki (jiwa)",
             visible: false,
             format: {places: 0}
           },
           {
-            fieldName: "perempuan",
+            fieldName: "wanita",
             label: "Perempuan (jiwa)",
             visible: false,
             format: {places: 0}
           },
           {
-            fieldName: "luas_ha",
-            label: "Luas Wilayah (ha)",
+            fieldName: "luas_wilayah",
+            label: "Luas Wilayah",
             visible: true,
             format: {places: 0}
           }
