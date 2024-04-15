@@ -85,8 +85,8 @@ console.log(fillSymbol);
       {
         type: "sizeInfo",
         field: rendererField,
-        minDataValue: 170543,
-        maxDataValue: 788589,
+        minDataValue: 25000,
+        maxDataValue: 5000000,
         valueUnit: "unknown",
 
         // The SMALLEST marker size at any given map scale is determined by
