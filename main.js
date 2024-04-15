@@ -28,7 +28,7 @@ require([
     // geoJsonLayer = new GeoJsonLayer({
     //     url : "data/bali2010.json"
     // });
-    var layerkuh = "https://gis.dukcapil.kemendagri.go.id/arcgis/rest/services/Hosted/Batas_Administrasi_Indonesia/MapServer/1"
+    var layerkuh = "https://gis.dukcapil.kemendagri.go.id/arcgis/rest/services/Hosted/Batas_Administrasi_Indonesia/FeatureServer/1"
     var rendererField = "jumlah_penduduk";
 
 
