@@ -21,8 +21,8 @@ require([
 
     map = new Map("mapDiv", {
       basemap: "dark-gray",
-      // center: [115.874572, -2.465325], //Indonesia
-      center: [115.110104, -8.447432], //Bali
+      center: [115.874572, -2.465325], //Indonesia
+      //center: [115.110104, -8.447432], //Bali
       zoom: 10
     });
     // geoJsonLayer = new GeoJsonLayer({
@@ -193,7 +193,7 @@ console.log(fillSymbol);
     var legend = new Legend({
       map: map,
       layerInfos: [
-        {layer: layer, title: "Penduduk Bali (2010)"}
+        {layer: layer, title: "Penduduk Indonesia"}
       ]
     }, "legendDiv");
 
